@@ -2,8 +2,8 @@ const { ethers } = require("hardhat");
 
 async function main() {
   const [owner, addr1] = await ethers.getSigners();
-  const gweiInitialAmount = ethers.parseUnits("100000000000000000000", "gwei");
-  const myTokenContract = await await hre.ethers.deployContract("MyToken", [gweiInitialAmount, owner.address]);
+  const initialSupply = ethers.parseEther('1');
+  const myTokenContract = await await hre.ethers.deployContract("MyToken", [initialSupply, owner.address]);
   await myTokenContract.waitForDeployment();
 
   const gweiAmount = ethers.parseUnits("1000", "gwei");
