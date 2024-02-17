@@ -13,11 +13,16 @@ async function main() {
   console.log("Staking successful. Staked balance of addr1:", stakedBalance.toString());
 
   await new Promise(resolve => setTimeout(resolve, 10000));
+  const initialRewardBalance = await myTokenContract.balanceOf(addr1.address);
 
   await myTokenContract.connect(addr1).withdraw();
 
   const stakedBalanceAfterWithdrawal = await myTokenContract.getStake(addr1.address);
   console.log("Withdrawal successful. Staked balance of addr1 after withdrawal:", stakedBalanceAfterWithdrawal.toString())
+
+  const finalRewardBalance = await myTokenContract.balanceOf(addr1.address);
+  const withdrawnReward =  initialRewardBalance - finalRewardBalance;
+  console.log("Withdrawn reward amount:", withdrawnReward.toString());
 }
 
 main().then(() => process.exit(0)).catch(error => {

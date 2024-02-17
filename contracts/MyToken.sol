@@ -33,7 +33,8 @@ contract MyToken is ERC20, Ownable {
     uint256 reward = (block.timestamp - _lastStakeTimestamp[msg.sender]) * _rewardRate;
     uint256 totalAmount = stakedAmount + reward;
 
-    _transfer(address(this), msg.sender, totalAmount);
+    _stakes[msg.sender] = 0;
+    _transfer(msg.sender, address(this), totalAmount);
   }
 
   function getStake(address account) public view returns (uint256) {
